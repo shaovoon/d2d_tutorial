@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "D2DHwndRT", "D2DHwndRT\D2DH
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "D2DDeviceContextRT", "D2DDeviceContextRT\D2DDeviceContextRT.vcxproj", "{937046F3-A508-4B13-A7D2-CF7FCD7640DD}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "D2DBmpRT", "D2DBmpRT\D2DBmpRT.vcxproj", "{66626547-6E29-43DE-803A-A763F5DD72A6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -31,6 +33,14 @@ Global
 		{937046F3-A508-4B13-A7D2-CF7FCD7640DD}.Release|x64.Build.0 = Release|x64
 		{937046F3-A508-4B13-A7D2-CF7FCD7640DD}.Release|x86.ActiveCfg = Release|Win32
 		{937046F3-A508-4B13-A7D2-CF7FCD7640DD}.Release|x86.Build.0 = Release|Win32
+		{66626547-6E29-43DE-803A-A763F5DD72A6}.Debug|x64.ActiveCfg = Debug|x64
+		{66626547-6E29-43DE-803A-A763F5DD72A6}.Debug|x64.Build.0 = Debug|x64
+		{66626547-6E29-43DE-803A-A763F5DD72A6}.Debug|x86.ActiveCfg = Debug|Win32
+		{66626547-6E29-43DE-803A-A763F5DD72A6}.Debug|x86.Build.0 = Debug|Win32
+		{66626547-6E29-43DE-803A-A763F5DD72A6}.Release|x64.ActiveCfg = Release|x64
+		{66626547-6E29-43DE-803A-A763F5DD72A6}.Release|x64.Build.0 = Release|x64
+		{66626547-6E29-43DE-803A-A763F5DD72A6}.Release|x86.ActiveCfg = Release|Win32
+		{66626547-6E29-43DE-803A-A763F5DD72A6}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
