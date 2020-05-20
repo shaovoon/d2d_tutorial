@@ -9,7 +9,10 @@ class FactorySingleton
 {
 public:
 	static ComPtr<ID2D1Factory> GetGraphicsFactory();
+	static ComPtr<IWICImagingFactory> GetImageFactory();
+	static void DestroyImageFactory();
 private:
 	static ComPtr<ID2D1Factory> m_GraphicsFactory;
+	static ComPtr<IWICImagingFactory> m_ImageFactory;
 };
 
