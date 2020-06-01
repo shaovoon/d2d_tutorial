@@ -26,7 +26,7 @@ public:
 	void DrawRectangle();
 	void DrawRoundedRectangle();
 	void DrawCircle();
-	ComPtr<ID2D1PathGeometry> GenTriangleGeometry();
+	ComPtr<ID2D1PathGeometry> GenTriangleGeometry(D2D1_POINT_2F pt1, D2D1_POINT_2F pt2, D2D1_POINT_2F pt3);
 	void DrawTriangle();
 
 

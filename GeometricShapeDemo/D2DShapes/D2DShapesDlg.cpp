@@ -249,7 +249,7 @@ void CD2DShapesDlg::DrawCircle()
 		m_FillBrush.Get());
 }
 
-ComPtr<ID2D1PathGeometry> CD2DShapesDlg::GenTriangleGeometry()
+ComPtr<ID2D1PathGeometry> CD2DShapesDlg::GenTriangleGeometry(D2D1_POINT_2F pt1, D2D1_POINT_2F pt2, D2D1_POINT_2F pt3)
 {
 	ID2D1GeometrySink* pSink = NULL;
 	HRESULT hr = S_OK;
@@ -267,14 +267,14 @@ ComPtr<ID2D1PathGeometry> CD2DShapesDlg::GenTriangleGeometry()
 			if (SUCCEEDED(hr))
 			{
 				pSink->BeginFigure(
-					D2D1::Point2F(60, 10),
+					pt1,
 					D2D1_FIGURE_BEGIN_FILLED
 				);
 
-				pSink->AddLine(D2D1::Point2F(110, 70));
+				pSink->AddLine(pt2);
 
 
-				pSink->AddLine(D2D1::Point2F(10, 70));
+				pSink->AddLine(pt3);
 
 				pSink->EndFigure(D2D1_FIGURE_END_CLOSED);
 
@@ -294,8 +294,8 @@ void CD2DShapesDlg::DrawTriangle()
 		m_FillBrush.ReleaseAndGetAddressOf()));
 
 	ComPtr<ID2D1StrokeStyle> stroke = CreateStrokeStyle();
-	ComPtr<ID2D1PathGeometry> geometry = GenTriangleGeometry();
-	const D2D1_ELLIPSE ell = Ellipse(Point2F(50.0f, 50.0f), 40, 40);
+	ComPtr<ID2D1PathGeometry> geometry = GenTriangleGeometry(
+		Point2F(60, 10), Point2F(110, 70), Point2F(10, 70));
 	m_Target->DrawGeometry(
 		geometry.Get(),
 		m_StrokeBrush.Get(),
