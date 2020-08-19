@@ -138,11 +138,11 @@ void CD2DShapesDlg::CreateDeviceIndependentResources()
 void CD2DShapesDlg::Draw()
 {
 	m_Target->Clear(ColorF(ColorF::White));
-	DrawLine();
+	//DrawLine();
 	//DrawRectangle();
 	//DrawRoundedRectangle();
 	//DrawCircle();
-	//DrawTriangle();
+	DrawTriangle();
 }
 /*
 ComPtr<ID2D1StrokeStyle> CD2DShapesDlg::CreateStrokeStyle()
@@ -196,8 +196,8 @@ void CD2DShapesDlg::DrawLine()
 
 	ComPtr<ID2D1StrokeStyle> stroke = CreateStrokeStyle();
 	m_Target->DrawLine(
-Point2F(10.0f, 40.0f),
-Point2F(110.0f, 40.0f),
+		Point2F(10.0f, 40.0f),
+		Point2F(110.0f, 40.0f),
 		m_StrokeBrush.Get(),
 		8.0f,
 		stroke.Get());
