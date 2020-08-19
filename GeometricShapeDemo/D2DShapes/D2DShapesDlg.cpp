@@ -137,14 +137,14 @@ void CD2DShapesDlg::CreateDeviceIndependentResources()
 
 void CD2DShapesDlg::Draw()
 {
-	m_Target->Clear(ColorF(0.26f, 0.56f, 0.87f));
-	//DrawLine();
+	m_Target->Clear(ColorF(ColorF::White));
+	DrawLine();
 	//DrawRectangle();
 	//DrawRoundedRectangle();
 	//DrawCircle();
-	DrawTriangle();
+	//DrawTriangle();
 }
-
+/*
 ComPtr<ID2D1StrokeStyle> CD2DShapesDlg::CreateStrokeStyle()
 {
 	ComPtr<ID2D1StrokeStyle> strokeStyle;
@@ -165,13 +165,34 @@ ComPtr<ID2D1StrokeStyle> CD2DShapesDlg::CreateStrokeStyle()
 
 	return strokeStyle;
 }
+*/
+
+ComPtr<ID2D1StrokeStyle> CD2DShapesDlg::CreateStrokeStyle()
+{
+	ComPtr<ID2D1StrokeStyle> strokeStyle;
+
+	HR(FactorySingleton::GetGraphicsFactory()->CreateStrokeStyle(
+		D2D1::StrokeStyleProperties(
+			D2D1_CAP_STYLE_ROUND,
+			D2D1_CAP_STYLE_ROUND,
+			D2D1_CAP_STYLE_ROUND,
+			D2D1_LINE_JOIN_ROUND,
+			0.0f,
+			D2D1_DASH_STYLE_SOLID,
+			0.0f),
+		nullptr,
+		0,
+		strokeStyle.GetAddressOf()
+	));
+
+	return strokeStyle;
+}
+
 
 void CD2DShapesDlg::DrawLine()
 {
 	HR(m_Target->CreateSolidColorBrush(ColorF(ColorF::Black),
 		m_StrokeBrush.ReleaseAndGetAddressOf()));
-	HR(m_Target->CreateSolidColorBrush(ColorF(ColorF::White),
-		m_FillBrush.ReleaseAndGetAddressOf()));
 
 	ComPtr<ID2D1StrokeStyle> stroke = CreateStrokeStyle();
 	m_Target->DrawLine(
@@ -184,9 +205,9 @@ Point2F(110.0f, 40.0f),
 
 void CD2DShapesDlg::DrawRectangle()
 {
-	HR(m_Target->CreateSolidColorBrush(ColorF(ColorF::Black),
+	HR(m_Target->CreateSolidColorBrush(ColorF(ColorF::Red),
 		m_StrokeBrush.ReleaseAndGetAddressOf()));
-	HR(m_Target->CreateSolidColorBrush(ColorF(ColorF::White),
+	HR(m_Target->CreateSolidColorBrush(ColorF(ColorF::Yellow),
 		m_FillBrush.ReleaseAndGetAddressOf()));
 
 	ComPtr<ID2D1StrokeStyle> stroke = CreateStrokeStyle();
@@ -194,7 +215,7 @@ void CD2DShapesDlg::DrawRectangle()
 	m_Target->DrawRectangle(
 		rect,
 		m_StrokeBrush.Get(),
-		4.0f,
+		10.0f,
 		stroke.Get());
 
 	m_Target->FillRectangle(
@@ -204,9 +225,9 @@ void CD2DShapesDlg::DrawRectangle()
 
 void CD2DShapesDlg::DrawRoundedRectangle()
 {
-	HR(m_Target->CreateSolidColorBrush(ColorF(ColorF::Black),
+	HR(m_Target->CreateSolidColorBrush(ColorF(ColorF::LightSeaGreen),
 		m_StrokeBrush.ReleaseAndGetAddressOf()));
-	HR(m_Target->CreateSolidColorBrush(ColorF(ColorF::White),
+	HR(m_Target->CreateSolidColorBrush(ColorF(ColorF::Yellow),
 		m_FillBrush.ReleaseAndGetAddressOf()));
 
 	ComPtr<ID2D1StrokeStyle> stroke = CreateStrokeStyle();
@@ -221,7 +242,7 @@ void CD2DShapesDlg::DrawRoundedRectangle()
 	m_Target->DrawRoundedRectangle(
 		roundedRect,
 		m_StrokeBrush.Get(),
-		4.0f,
+		10.0f,
 		stroke.Get());
 
 	m_Target->FillRoundedRectangle(
@@ -231,9 +252,9 @@ void CD2DShapesDlg::DrawRoundedRectangle()
 
 void CD2DShapesDlg::DrawCircle()
 {
-	HR(m_Target->CreateSolidColorBrush(ColorF(ColorF::Black),
+	HR(m_Target->CreateSolidColorBrush(ColorF(ColorF::BlueViolet),
 		m_StrokeBrush.ReleaseAndGetAddressOf()));
-	HR(m_Target->CreateSolidColorBrush(ColorF(ColorF::White),
+	HR(m_Target->CreateSolidColorBrush(ColorF(ColorF::Yellow),
 		m_FillBrush.ReleaseAndGetAddressOf()));
 
 	ComPtr<ID2D1StrokeStyle> stroke = CreateStrokeStyle();
@@ -241,7 +262,7 @@ void CD2DShapesDlg::DrawCircle()
 	m_Target->DrawEllipse(
 		ell,
 		m_StrokeBrush.Get(),
-		4.0f,
+		10.0f,
 		stroke.Get());
 
 	m_Target->FillEllipse(
@@ -288,9 +309,9 @@ ComPtr<ID2D1PathGeometry> CD2DShapesDlg::GenTriangleGeometry(D2D1_POINT_2F pt1, 
 
 void CD2DShapesDlg::DrawTriangle()
 {
-	HR(m_Target->CreateSolidColorBrush(ColorF(ColorF::Black),
+	HR(m_Target->CreateSolidColorBrush(ColorF(ColorF::Purple),
 		m_StrokeBrush.ReleaseAndGetAddressOf()));
-	HR(m_Target->CreateSolidColorBrush(ColorF(ColorF::White),
+	HR(m_Target->CreateSolidColorBrush(ColorF(ColorF::Yellow),
 		m_FillBrush.ReleaseAndGetAddressOf()));
 
 	ComPtr<ID2D1StrokeStyle> stroke = CreateStrokeStyle();
@@ -299,7 +320,7 @@ void CD2DShapesDlg::DrawTriangle()
 	m_Target->DrawGeometry(
 		geometry.Get(),
 		m_StrokeBrush.Get(),
-		4.0f,
+		10.0f,
 		stroke.Get());
 
 	m_Target->FillGeometry(
