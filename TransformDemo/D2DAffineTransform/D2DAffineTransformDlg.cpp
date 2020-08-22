@@ -146,7 +146,6 @@ void CD2DAffineTransformDlg::OnPaint()
 	else
 	{
 		CDialogEx::OnPaint();
-		CDialogEx::OnPaint();
 
 		if (!m_Target)
 		{
