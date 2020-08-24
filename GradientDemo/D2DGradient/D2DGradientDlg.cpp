@@ -128,7 +128,7 @@ void CD2DGradientDlg::CreateLinearGradientBrush()
 {
 	D2D1_GRADIENT_STOP stops[] =
 	{
-		{ 0.0f, ColorF(ColorF::LightBlue) },
+		{ 0.0f, ColorF(ColorF::Cyan) },
 		{ 1.0f, ColorF(ColorF::DarkBlue) }
 	};
 
@@ -147,7 +147,7 @@ void CD2DGradientDlg::CreateRadialGradientBrush()
 {
 	D2D1_GRADIENT_STOP stops[] =
 	{
-		{ 0.0f, ColorF(ColorF::LightBlue) },
+		{ 0.0f, ColorF(ColorF::Cyan) },
 		{ 1.0f, ColorF(ColorF::DarkBlue) }
 	};
 
@@ -165,8 +165,8 @@ void CD2DGradientDlg::CreateDeviceIndependentResources()
 
 void CD2DGradientDlg::Draw()
 {
-	//DrawLinearGradientRect();
-	DrawRadialGradientRect();
+	DrawLinearGradientRect();
+	//DrawRadialGradientRect();
 }
 
 void CD2DGradientDlg::DrawLinearGradientRect()
