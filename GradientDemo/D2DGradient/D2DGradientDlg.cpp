@@ -156,6 +156,7 @@ void CD2DGradientDlg::CreateRadialGradientBrush()
 
 	D2D1_RADIAL_GRADIENT_BRUSH_PROPERTIES props = {};
 	props.center = Point2F(50.0f, 50.0f);
+	//props.gradientOriginOffset = Point2F(100.0f, 100.0f);
 	HR(m_Target->CreateRadialGradientBrush(props, collection.Get(), m_RadialBrush.ReleaseAndGetAddressOf()));
 }
 
@@ -165,8 +166,8 @@ void CD2DGradientDlg::CreateDeviceIndependentResources()
 
 void CD2DGradientDlg::Draw()
 {
-	DrawLinearGradientRect();
-	//DrawRadialGradientRect();
+	//DrawLinearGradientRect();
+	DrawRadialGradientRect();
 }
 
 void CD2DGradientDlg::DrawLinearGradientRect()
