@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.30413.136
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "D2DImage", "D2DImage\D2DImage.vcxproj", "{D3C7C18B-B599-4BC8-A277-075E5F5118E1}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "D2DSaveImage", "D2DSaveImage\D2DSaveImage.vcxproj", "{BE110A77-C494-4736-8DB9-39894BD562FE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +23,14 @@ Global
 		{D3C7C18B-B599-4BC8-A277-075E5F5118E1}.Release|x64.Build.0 = Release|x64
 		{D3C7C18B-B599-4BC8-A277-075E5F5118E1}.Release|x86.ActiveCfg = Release|Win32
 		{D3C7C18B-B599-4BC8-A277-075E5F5118E1}.Release|x86.Build.0 = Release|Win32
+		{BE110A77-C494-4736-8DB9-39894BD562FE}.Debug|x64.ActiveCfg = Debug|x64
+		{BE110A77-C494-4736-8DB9-39894BD562FE}.Debug|x64.Build.0 = Debug|x64
+		{BE110A77-C494-4736-8DB9-39894BD562FE}.Debug|x86.ActiveCfg = Debug|Win32
+		{BE110A77-C494-4736-8DB9-39894BD562FE}.Debug|x86.Build.0 = Debug|Win32
+		{BE110A77-C494-4736-8DB9-39894BD562FE}.Release|x64.ActiveCfg = Release|x64
+		{BE110A77-C494-4736-8DB9-39894BD562FE}.Release|x64.Build.0 = Release|x64
+		{BE110A77-C494-4736-8DB9-39894BD562FE}.Release|x86.ActiveCfg = Release|Win32
+		{BE110A77-C494-4736-8DB9-39894BD562FE}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,46 +1,46 @@
 
-// D2DImage.cpp : Defines the class behaviors for the application.
+// D2DSaveImage.cpp : Defines the class behaviors for the application.
 //
 
 #include "pch.h"
 #include "framework.h"
-#include "D2DImage.h"
-#include "D2DImageDlg.h"
+#include "D2DSaveImage.h"
+#include "D2DSaveImageDlg.h"
 #include "../Common/FactorySingleton.h"
-
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
 
 
-// CD2DImageApp
+// CD2DSaveImageApp
 
-BEGIN_MESSAGE_MAP(CD2DImageApp, CWinApp)
+BEGIN_MESSAGE_MAP(CD2DSaveImageApp, CWinApp)
 	ON_COMMAND(ID_HELP, &CWinApp::OnHelp)
 END_MESSAGE_MAP()
 
 
-// CD2DImageApp construction
+// CD2DSaveImageApp construction
 
-CD2DImageApp::CD2DImageApp()
+CD2DSaveImageApp::CD2DSaveImageApp()
 {
 	::CoInitialize(NULL);
 }
 
-CD2DImageApp::~CD2DImageApp()
+CD2DSaveImageApp::~CD2DSaveImageApp()
 {
 	FactorySingleton::DestroyImageFactory();
 	::CoUninitialize();
 }
 
-// The one and only CD2DImageApp object
 
-CD2DImageApp theApp;
+// The one and only CD2DSaveImageApp object
+
+CD2DSaveImageApp theApp;
 
 
-// CD2DImageApp initialization
+// CD2DSaveImageApp initialization
 
-BOOL CD2DImageApp::InitInstance()
+BOOL CD2DSaveImageApp::InitInstance()
 {
 	// InitCommonControlsEx() is required on Windows XP if an application
 	// manifest specifies use of ComCtl32.dll version 6 or later to enable
@@ -73,7 +73,7 @@ BOOL CD2DImageApp::InitInstance()
 	// such as the name of your company or organization
 	SetRegistryKey(_T("Local AppWizard-Generated Applications"));
 
-	CD2DImageDlg dlg;
+	CD2DSaveImageDlg dlg;
 	m_pMainWnd = &dlg;
 	INT_PTR nResponse = dlg.DoModal();
 	if (nResponse == IDOK)

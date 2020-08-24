@@ -19,6 +19,7 @@ class CD2DImageApp : public CWinApp
 {
 public:
 	CD2DImageApp();
+	~CD2DImageApp();
 
 // Overrides
 public:
