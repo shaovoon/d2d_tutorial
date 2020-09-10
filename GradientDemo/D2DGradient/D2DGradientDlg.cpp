@@ -47,6 +47,8 @@ BOOL CD2DGradientDlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// Set small icon
 
 	// TODO: Add extra initialization here
+	m_Text = L"ROCKSTAR DEVELOPER!";
+	CreateDeviceIndependentResources();
 
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
@@ -126,12 +128,20 @@ void CD2DGradientDlg::CreateDeviceResources()
 
 void CD2DGradientDlg::CreateLinearGradientBrush()
 {
+	/*
 	D2D1_GRADIENT_STOP stops[] =
 	{
 		{ 0.0f, ColorF(ColorF::Cyan) },
 		{ 1.0f, ColorF(ColorF::DarkBlue) }
 	};
-
+	*/
+	D2D1_GRADIENT_STOP stops[] =
+	{
+		{ 0.0f, ColorF(227.0f / 255.0f, 9.0f / 255.0f, 64.0f / 255.0f, 1.0f) },
+		{ 0.33f, ColorF(231.0f / 255.0f, 215.0f / 255.0f, 2.0f / 255.0f, 1.0f) },
+		{ 0.66f, ColorF(15.0f / 255.0f, 168.0f / 255.0f, 149.0f / 255.0f, 1.0f) },
+		{ 1.0f, ColorF(19.0f / 255.0f, 115.0f / 255.0f, 232.0f / 255.0f, 1.0f) }
+	};
 	ComPtr<ID2D1GradientStopCollection> collection;
 
 	HR(m_Target->CreateGradientStopCollection(stops, _countof(stops),
@@ -162,23 +172,43 @@ void CD2DGradientDlg::CreateRadialGradientBrush()
 
 void CD2DGradientDlg::CreateDeviceIndependentResources()
 {
+	HR(FactorySingleton::GetDWriteFactory()->CreateTextFormat(L"Arial Black",
+		nullptr, DWRITE_FONT_WEIGHT_ULTRA_BOLD, DWRITE_FONT_STYLE_NORMAL,
+		DWRITE_FONT_STRETCH_NORMAL, 40, L"",
+		m_TextFormat.ReleaseAndGetAddressOf()));
 }
 
 void CD2DGradientDlg::Draw()
 {
 	//DrawLinearGradientRect();
-	DrawRadialGradientRect();
+	DrawLinearGradientText();
+	//DrawRadialGradientRect();
 }
 
 void CD2DGradientDlg::DrawLinearGradientRect()
 {
 	auto size = m_Target->GetSize();
 
-	m_LinearBrush->SetEndPoint(Point2F(size.width, size.height));
+	m_LinearBrush->SetStartPoint(Point2F(0.0f, 0.0f));
+
+	m_LinearBrush->SetEndPoint(Point2F(size.width, 0.0f));
 
 	auto r = RectF(0.0f, 0.0f, size.width, size.height);
 
 	m_Target->FillRectangle(r, m_LinearBrush.Get());
+}
+
+void CD2DGradientDlg::DrawLinearGradientText()
+{
+	auto size = m_Target->GetSize();
+
+	m_LinearBrush->SetStartPoint(Point2F(0.0f, 0.0f));
+
+	m_LinearBrush->SetEndPoint(Point2F(size.width, 0.0f));
+
+	auto r = RectF(0.0f, 0.0f, size.width, size.height);
+
+	m_Target->DrawTextW((LPCTSTR)m_Text, m_Text.GetLength(), m_TextFormat.Get(), &r, m_LinearBrush.Get());
 }
 
 void CD2DGradientDlg::DrawRadialGradientRect()

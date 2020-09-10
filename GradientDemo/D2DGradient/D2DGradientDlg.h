@@ -21,6 +21,7 @@ public:
 	void CreateDeviceIndependentResources();
 
 	void DrawLinearGradientRect();
+	void DrawLinearGradientText();
 	void DrawRadialGradientRect();
 
 
@@ -29,6 +30,9 @@ public:
 private:
 	ComPtr<ID2D1LinearGradientBrush> m_LinearBrush;
 	ComPtr<ID2D1RadialGradientBrush> m_RadialBrush;
+	CString m_Text;
+	ComPtr<IDWriteTextFormat> m_TextFormat;
+
 public:
 // Dialog Data
 #ifdef AFX_DESIGN_TIME
