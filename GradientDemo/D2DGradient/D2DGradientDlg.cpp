@@ -180,6 +180,8 @@ void CD2DGradientDlg::CreateDeviceIndependentResources()
 
 void CD2DGradientDlg::Draw()
 {
+	m_Target->Clear(ColorF(ColorF::White));
+
 	//DrawLinearGradientRect();
 	DrawLinearGradientText();
 	//DrawRadialGradientRect();
