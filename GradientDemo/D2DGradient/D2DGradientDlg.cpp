@@ -165,7 +165,7 @@ void CD2DGradientDlg::CreateRadialGradientBrush()
 	HR(m_Target->CreateGradientStopCollection(stops, _countof(stops), collection.GetAddressOf()));
 
 	D2D1_RADIAL_GRADIENT_BRUSH_PROPERTIES props = {};
-	props.center = Point2F(80.0f, 80.0f);
+	props.center = Point2F(120.0f, 80.0f);
 	//props.gradientOriginOffset = Point2F(100.0f, 100.0f);
 	HR(m_Target->CreateRadialGradientBrush(props, collection.Get(), m_RadialBrush.ReleaseAndGetAddressOf()));
 }
@@ -183,8 +183,9 @@ void CD2DGradientDlg::Draw()
 	m_Target->Clear(ColorF(ColorF::White));
 
 	//DrawLinearGradientRect();
-	DrawLinearGradientText();
+	//DrawLinearGradientText();
 	//DrawRadialGradientRect();
+	DrawRadialGradientText();
 }
 
 void CD2DGradientDlg::DrawLinearGradientRect()
@@ -222,4 +223,17 @@ void CD2DGradientDlg::DrawRadialGradientRect()
 	m_RadialBrush->SetRadiusY(radius);
 
 	m_Target->FillRectangle(RectF(0.0f, 0.0f, size.width, size.height), m_RadialBrush.Get());
+}
+
+void CD2DGradientDlg::DrawRadialGradientText()
+{
+	auto size = m_Target->GetSize();
+	auto radius = min(size.width, size.height);
+
+	m_RadialBrush->SetRadiusX(radius);
+	m_RadialBrush->SetRadiusY(radius);
+
+	auto r = RectF(0.0f, 0.0f, size.width, size.height);
+
+	m_Target->DrawTextW((LPCTSTR)m_Text, m_Text.GetLength(), m_TextFormat.Get(), &r, m_RadialBrush.Get());
 }

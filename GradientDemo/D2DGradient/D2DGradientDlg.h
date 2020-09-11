@@ -23,7 +23,7 @@ public:
 	void DrawLinearGradientRect();
 	void DrawLinearGradientText();
 	void DrawRadialGradientRect();
-
+	void DrawRadialGradientText();
 
 	void Draw();
 
