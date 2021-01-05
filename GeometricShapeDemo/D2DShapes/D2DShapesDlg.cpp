@@ -127,7 +127,7 @@ HCURSOR CD2DShapesDlg::OnQueryDragIcon()
 
 void CD2DShapesDlg::CreateDeviceResources()
 {
-	HR(m_Target->CreateSolidColorBrush(ColorF(ColorF::Red),
+	HR(m_Target->CreateSolidColorBrush(ColorF(ColorF::Crimson),
 		m_StrokeBrush.ReleaseAndGetAddressOf()));
 	HR(m_Target->CreateSolidColorBrush(ColorF(ColorF::Yellow),
 		m_FillBrush.ReleaseAndGetAddressOf()));
@@ -206,15 +206,12 @@ void CD2DShapesDlg::DrawLine()
 
 void CD2DShapesDlg::DrawRectangle()
 {
-	m_StrokeBrush->SetColor(ColorF(ColorF::Red));
-	m_FillBrush->SetColor(ColorF(ColorF::Yellow));
-
 	ComPtr<ID2D1StrokeStyle> stroke = CreateStrokeStyle();
-	const D2D1_RECT_F rect = RectF(10, 10, 110, 60);
+	const D2D1_RECT_F rect = RectF(10, 10, 210, 160);
 	m_Target->DrawRectangle(
 		rect,
 		m_StrokeBrush.Get(),
-		10.0f,
+		16.0f,
 		stroke.Get());
 
 	m_Target->FillRectangle(
@@ -224,11 +221,8 @@ void CD2DShapesDlg::DrawRectangle()
 
 void CD2DShapesDlg::DrawRoundedRectangle()
 {
-	m_StrokeBrush->SetColor(ColorF(ColorF::LightSeaGreen));
-	m_FillBrush->SetColor(ColorF(ColorF::Yellow));
-
 	ComPtr<ID2D1StrokeStyle> stroke = CreateStrokeStyle();
-	const D2D1_RECT_F rect = RectF(10, 10, 110, 60);
+	const D2D1_RECT_F rect = RectF(10, 10, 210, 160);
 
 	const D2D1_ROUNDED_RECT roundedRect = D2D1::RoundedRect(
 		rect,
@@ -239,7 +233,7 @@ void CD2DShapesDlg::DrawRoundedRectangle()
 	m_Target->DrawRoundedRectangle(
 		roundedRect,
 		m_StrokeBrush.Get(),
-		10.0f,
+		16.0f,
 		stroke.Get());
 
 	m_Target->FillRoundedRectangle(
@@ -249,15 +243,12 @@ void CD2DShapesDlg::DrawRoundedRectangle()
 
 void CD2DShapesDlg::DrawCircle()
 {
-	m_StrokeBrush->SetColor(ColorF(ColorF::BlueViolet));
-	m_FillBrush->SetColor(ColorF(ColorF::Yellow));
-
 	ComPtr<ID2D1StrokeStyle> stroke = CreateStrokeStyle();
-	const D2D1_ELLIPSE ell = Ellipse(Point2F(50.0f, 50.0f), 40, 40);
+	const D2D1_ELLIPSE ell = Ellipse(Point2F(100.0f, 100.0f), 90, 90);
 	m_Target->DrawEllipse(
 		ell,
 		m_StrokeBrush.Get(),
-		10.0f,
+		16.0f,
 		stroke.Get());
 
 	m_Target->FillEllipse(
@@ -304,16 +295,13 @@ ComPtr<ID2D1PathGeometry> CD2DShapesDlg::GenTriangleGeometry(D2D1_POINT_2F pt1, 
 
 void CD2DShapesDlg::DrawTriangle()
 {
-	m_StrokeBrush->SetColor(ColorF(ColorF::Purple));
-	m_FillBrush->SetColor(ColorF(ColorF::Yellow));
-
 	ComPtr<ID2D1StrokeStyle> stroke = CreateStrokeStyle();
 	ComPtr<ID2D1PathGeometry> geometry = GenTriangleGeometry(
-		Point2F(60, 10), Point2F(110, 70), Point2F(10, 70));
+		Point2F(110, 10), Point2F(210, 140), Point2F(10, 140));
 	m_Target->DrawGeometry(
 		geometry.Get(),
 		m_StrokeBrush.Get(),
-		10.0f,
+		16.0f,
 		stroke.Get());
 
 	m_Target->FillGeometry(
