@@ -226,8 +226,8 @@ void CD2DShapesDlg::DrawRoundedRectangle()
 
 	const D2D1_ROUNDED_RECT roundedRect = D2D1::RoundedRect(
 		rect,
-		10.f,
-		10.f
+		20.f,
+		20.f
 	);
 	
 	m_Target->DrawRoundedRectangle(
