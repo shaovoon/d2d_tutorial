@@ -20,9 +20,6 @@ public:
 	ComPtr<ID2D1Bitmap> m_D2DBkgdBitmap;
 	ComPtr<IWICFormatConverter> m_PhotoBitmap;
 	ComPtr<ID2D1Bitmap> m_D2DPhotoBitmap;
-	CString m_Text;
-	ComPtr<IDWriteTextFormat> m_TextFormat;
-	ComPtr<ID2D1BitmapBrush> m_FillBrush;
 	ComPtr<ID2D1SolidColorBrush> m_WhiteBrush;
 	ComPtr<ID2D1SolidColorBrush> m_GreyBrush;
 	ComPtr<ID2D1RadialGradientBrush> m_RadialBrushTopLeft;

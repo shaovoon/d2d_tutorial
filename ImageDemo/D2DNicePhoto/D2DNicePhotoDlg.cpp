@@ -20,7 +20,7 @@
 
 CD2DNicePhotoDlg::CD2DNicePhotoDlg(CWnd* pParent /*=nullptr*/)
 	: CDialogEx(IDD_D2DNICEPHOTO_DIALOG, pParent)
-	, m_Radius(60)
+	, m_Radius(70)
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 }
@@ -51,7 +51,6 @@ BOOL CD2DNicePhotoDlg::OnInitDialog()
 	CreateDeviceIndependentResources();
 	m_ImageFile = L"yes.jpg";
 	m_PatternImageFile = L"GreyWall.png";
-	m_Text = L"HELLO\nWORLD!";
 
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
@@ -152,10 +151,6 @@ void CD2DNicePhotoDlg::CreateDeviceResources()
 
 void CD2DNicePhotoDlg::CreateDeviceIndependentResources()
 {
-	HR(FactorySingleton::GetDWriteFactory()->CreateTextFormat(L"Arial Black",
-		nullptr, DWRITE_FONT_WEIGHT_ULTRA_BOLD, DWRITE_FONT_STYLE_NORMAL,
-		DWRITE_FONT_STRETCH_NORMAL, 80, L"",
-		m_TextFormat.ReleaseAndGetAddressOf()));
 }
 
 void CD2DNicePhotoDlg::Draw()
@@ -234,7 +229,6 @@ void CD2DNicePhotoDlg::DrawPhoto()
 
 	const auto rectSrc = RectF(0.0f, 0.0f, 256, 256);
 
-
 	const auto rectDest = RectF(10.0f, 10.0f, 266, 266);
 
 	m_BmpTarget->DrawBitmap(m_D2DPhotoBitmap.Get(), rectDest, 1.0f, D2D1_BITMAP_INTERPOLATION_MODE_LINEAR, rectSrc);
@@ -244,9 +238,10 @@ void CD2DNicePhotoDlg::DrawPhoto()
 void CD2DNicePhotoDlg::CreateRadialGradientBrush()
 {
 	float gray = 0.66f;
+	float blue = 0.72f;
 	D2D1_GRADIENT_STOP stops[] =
 	{
-		{ 0.0f, ColorF(gray,gray,gray) },
+		{ 0.0f, ColorF(gray,gray,blue) },
 		{ 1.0f, ColorF(ColorF::White) }
 	};
 
@@ -260,17 +255,14 @@ void CD2DNicePhotoDlg::CreateRadialGradientBrush()
 
 
 	props.center = Point2F(0.0f, 276.0f);
-	//props.gradientOriginOffset = Point2F(100.0f, 100.0f);
 	HR(m_BmpTarget->CreateRadialGradientBrush(props, collection.Get(), m_RadialBrushBottomLeft.ReleaseAndGetAddressOf()));
 
 
 	props.center = Point2F(276.0f, 276.0f);
-	//props.gradientOriginOffset = Point2F(100.0f, 100.0f);
 	HR(m_BmpTarget->CreateRadialGradientBrush(props, collection.Get(), m_RadialBrushBottomRight.ReleaseAndGetAddressOf()));
 
 
 	props.center = Point2F(276.0f, 0.0f);
-	//props.gradientOriginOffset = Point2F(100.0f, 100.0f);
 	HR(m_BmpTarget->CreateRadialGradientBrush(props, collection.Get(), m_RadialBrushTopRight.ReleaseAndGetAddressOf()));
 
 	m_RadialBrushTopLeft->SetRadiusX(m_Radius);
@@ -284,5 +276,4 @@ void CD2DNicePhotoDlg::CreateRadialGradientBrush()
 
 	m_RadialBrushTopRight->SetRadiusX(m_Radius);
 	m_RadialBrushTopRight->SetRadiusY(m_Radius);
-
 }
