@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30413.136
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32819.101
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "D2DImage", "D2DImage\D2DImage.vcxproj", "{D3C7C18B-B599-4BC8-A277-075E5F5118E1}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "D2DSaveImage", "D2DSaveImage\D2DSaveImage.vcxproj", "{BE110A77-C494-4736-8DB9-39894BD562FE}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "D2DNicePhoto", "D2DNicePhoto\D2DNicePhoto.vcxproj", "{D5513139-2BEE-4CAA-B4B6-310ACB782943}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,6 +33,14 @@ Global
 		{BE110A77-C494-4736-8DB9-39894BD562FE}.Release|x64.Build.0 = Release|x64
 		{BE110A77-C494-4736-8DB9-39894BD562FE}.Release|x86.ActiveCfg = Release|Win32
 		{BE110A77-C494-4736-8DB9-39894BD562FE}.Release|x86.Build.0 = Release|Win32
+		{D5513139-2BEE-4CAA-B4B6-310ACB782943}.Debug|x64.ActiveCfg = Debug|x64
+		{D5513139-2BEE-4CAA-B4B6-310ACB782943}.Debug|x64.Build.0 = Debug|x64
+		{D5513139-2BEE-4CAA-B4B6-310ACB782943}.Debug|x86.ActiveCfg = Debug|Win32
+		{D5513139-2BEE-4CAA-B4B6-310ACB782943}.Debug|x86.Build.0 = Debug|Win32
+		{D5513139-2BEE-4CAA-B4B6-310ACB782943}.Release|x64.ActiveCfg = Release|x64
+		{D5513139-2BEE-4CAA-B4B6-310ACB782943}.Release|x64.Build.0 = Release|x64
+		{D5513139-2BEE-4CAA-B4B6-310ACB782943}.Release|x86.ActiveCfg = Release|Win32
+		{D5513139-2BEE-4CAA-B4B6-310ACB782943}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
