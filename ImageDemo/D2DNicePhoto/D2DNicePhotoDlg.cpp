@@ -210,6 +210,12 @@ void CD2DNicePhotoDlg::DrawPhoto()
 	const auto rect = RectF(0.0f, 0.0f, 276, 276);
 	m_BmpTarget->FillRectangle(&rect, m_WhiteBrush.Get());
 
+	const auto rectSrc = RectF(0.0f, 0.0f, 256, 256);
+
+	const auto rectDest = RectF(10.0f, 10.0f, 266, 266);
+
+	m_BmpTarget->DrawBitmap(m_D2DPhotoBitmap.Get(), rectDest, 1.0f, D2D1_BITMAP_INTERPOLATION_MODE_LINEAR, rectSrc);
+
 	const D2D1_ELLIPSE ellTopLeft = Ellipse(Point2F(0.0f, 0.0f), m_Radius, m_Radius);
 	m_BmpTarget->FillEllipse(
 		ellTopLeft,
@@ -227,22 +233,17 @@ void CD2DNicePhotoDlg::DrawPhoto()
 		ellTopRight,
 		m_RadialBrushTopRight.Get());
 
-	const auto rectSrc = RectF(0.0f, 0.0f, 256, 256);
-
-	const auto rectDest = RectF(10.0f, 10.0f, 266, 266);
-
-	m_BmpTarget->DrawBitmap(m_D2DPhotoBitmap.Get(), rectDest, 1.0f, D2D1_BITMAP_INTERPOLATION_MODE_LINEAR, rectSrc);
 	m_BmpTarget->EndDraw();
 }
 
 void CD2DNicePhotoDlg::CreateRadialGradientBrush()
 {
-	float gray = 0.66f;
-	float blue = 0.72f;
+	float gray = 0.50f;
+	float blue = 0.60f;
 	D2D1_GRADIENT_STOP stops[] =
 	{
-		{ 0.0f, ColorF(gray,gray,blue) },
-		{ 1.0f, ColorF(ColorF::White) }
+		{ 0.0f, ColorF(gray,gray,blue,0.7f) },
+		{ 1.0f, ColorF(1.0f,1.0f,1.0f,0.0f) }
 	};
 
 	ComPtr<ID2D1GradientStopCollection> collection;
