@@ -1,7 +1,7 @@
 /*
 TextDisplayStatic class to display text with Direct2D
 
-Copyright (c) 2008 Wong Shao Voon
+Copyright (c) 2022 Wong Shao Voon
 
 The Code Project Open License (CPOL)
 http://www.codeproject.com/info/cpol10.aspx
@@ -25,6 +25,8 @@ TextDisplayStatic::TextDisplayStatic()
 	, m_FontSize(26.0f)
 	, m_DPI(96.0f)
 	, m_DPIScale(1.0f)
+	, m_Italic(false)
+	, m_Bold(false)
 {
 
 }
@@ -87,7 +89,10 @@ void TextDisplayStatic::OnPaint()
 
 	m_DCTarget->DrawRectangle(rectf, m_BlackBrush.Get(), m_StrokeWidth);
 
-	DrawText(m_DCTarget.Get(), m_FontFamily, m_Text, m_FontSize * m_DPIScale);
+	ComPtr<IDWriteTextFormat> textFormat = GetTextFormat(m_FontFamily, m_FontSize * m_DPIScale,
+		m_Italic, m_Bold, m_Centerize, m_Centerize);
+
+	DrawText(m_DCTarget.Get(), textFormat.Get(), m_Text);
 
 	if (D2DERR_RECREATE_TARGET == m_DCTarget->EndDraw())
 	{
@@ -107,25 +112,34 @@ void TextDisplayStatic::CreateDeviceResources(ID2D1RenderTarget* target)
 		m_BlackBrush.ReleaseAndGetAddressOf()));
 }
 
-void TextDisplayStatic::DrawText(ID2D1RenderTarget* target, const CString& fontname, const CString& text, float fontSize)
+void TextDisplayStatic::DrawText(ID2D1RenderTarget* target, IDWriteTextFormat* textFormat, const CString& text)
 {
-	ComPtr<IDWriteTextFormat> textFormat;
-
-	HR(FactorySingleton::GetDWriteFactory()->CreateTextFormat((LPCTSTR)fontname,
-		nullptr, DWRITE_FONT_WEIGHT_NORMAL, DWRITE_FONT_STYLE_NORMAL,
-		DWRITE_FONT_STRETCH_NORMAL, fontSize, L"",
-		textFormat.GetAddressOf()));
-
-	if (m_Centerize)
-	{
-		textFormat->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_CENTER);
-		textFormat->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_CENTER);
-	}
-
 	auto size = target->GetSize();
 
 	auto rect = RectF(0.0f, 0.0f, size.width, size.height);
-	target->DrawTextW(text, text.GetLength(), textFormat.Get(), rect, m_BlackBrush.Get());
+	target->DrawTextW(text, text.GetLength(), textFormat, rect, m_BlackBrush.Get());
+}
+
+ComPtr<IDWriteTextFormat> TextDisplayStatic::GetTextFormat(const CString& fontname, float fontSize,
+	bool italic, bool bold, bool centerHorizontal, bool centerVertical)
+{
+	ComPtr<IDWriteTextFormat> textFormat;
+
+	DWRITE_FONT_STYLE fontStyle = italic ? DWRITE_FONT_STYLE_ITALIC : DWRITE_FONT_STYLE_NORMAL;
+	DWRITE_FONT_WEIGHT fontWeight = bold ? DWRITE_FONT_WEIGHT_BOLD : DWRITE_FONT_WEIGHT_NORMAL;
+
+	HR(FactorySingleton::GetDWriteFactory()->CreateTextFormat((LPCTSTR)fontname,
+		nullptr, fontWeight, fontStyle,
+		DWRITE_FONT_STRETCH_NORMAL, fontSize, L"",
+		textFormat.GetAddressOf()));
+
+	if (centerHorizontal)
+		textFormat->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_CENTER);
+
+	if (centerVertical)
+		textFormat->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_CENTER);
+
+	return textFormat;
 }
 
 void TextDisplayStatic::GetDPI()

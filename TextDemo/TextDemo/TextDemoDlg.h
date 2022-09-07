@@ -46,4 +46,9 @@ protected:
 	afx_msg void OnChangeEdtEndCredit();
 	afx_msg void OnBnClickedBtnEndCreditOk();
 	afx_msg void OnBnClickedBtnEndCreditCancel();
+public:
+	CButton m_chkItalic;
+	afx_msg void OnBnClickedChkItalic();
+	CButton m_chkBold;
+	afx_msg void OnBnClickedChkBold();
 };

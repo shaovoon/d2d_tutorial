@@ -1,7 +1,7 @@
 /*
 TextDisplayStatic class to display text with Direct2D
 
-Copyright (c) 2008 Wong Shao Voon
+Copyright (c) 2022 Wong Shao Voon
 
 The Code Project Open License (CPOL)
 http://www.codeproject.com/info/cpol10.aspx
@@ -24,19 +24,25 @@ public:
 	TextDisplayStatic();
 	virtual ~TextDisplayStatic();
 
-	void SetInfo(const CString& fontFamily, const CString& text, bool centerize, float strokeWidth, float fontSize)
+	void SetInfo(const CString& fontFamily, const CString& text, bool centerize, 
+		float strokeWidth, float fontSize, bool italic, bool bold)
 	{
 		m_FontFamily = fontFamily;
 		m_Text = text;
 		m_Centerize = centerize;
 		m_StrokeWidth = strokeWidth;
 		m_FontSize = fontSize;
+		m_Italic = italic;
+		m_Bold = bold;
 	}
 
 private:
 	void ClearScreen(ID2D1RenderTarget* target);
 	void CreateDeviceResources(ID2D1RenderTarget* target);
-	void DrawText(ID2D1RenderTarget* target, const CString& fontname, const CString& text, float fontSize);
+	static ComPtr<IDWriteTextFormat> GetTextFormat(const CString& fontname, float fontSize,
+		bool italic, bool bold, bool centerHorizontal, bool centerVertical);
+
+	void DrawText(ID2D1RenderTarget* target, IDWriteTextFormat* textFormat, const CString& text);
 	void GetDPI();
 
 private:
@@ -49,6 +55,8 @@ private:
 	float m_FontSize;
 	float m_DPI;
 	float m_DPIScale;
+	bool m_Italic;
+	bool m_Bold;
 
 protected:
 	DECLARE_MESSAGE_MAP()

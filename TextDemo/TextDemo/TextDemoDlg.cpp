@@ -31,6 +31,8 @@ void CTextDemoDlg::DoDataExchange(CDataExchange* pDX)
 	CDialogEx::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_EDT_END_CREDIT, m_edtEndCredit);
 	DDX_Control(pDX, IDC_STATIC_TEXT_DISPLAY, m_staticTextDisplay);
+	DDX_Control(pDX, IDC_CHK_ITALIC, m_chkItalic);
+	DDX_Control(pDX, IDC_CHK_BOLD, m_chkBold);
 }
 
 BEGIN_MESSAGE_MAP(CTextDemoDlg, CDialogEx)
@@ -39,6 +41,8 @@ BEGIN_MESSAGE_MAP(CTextDemoDlg, CDialogEx)
 	ON_EN_CHANGE(IDC_EDT_END_CREDIT, &CTextDemoDlg::OnChangeEdtEndCredit)
 	ON_BN_CLICKED(IDC_BTN_END_CREDIT_OK, &CTextDemoDlg::OnBnClickedBtnEndCreditOk)
 	ON_BN_CLICKED(IDC_BTN_END_CREDIT_CANCEL, &CTextDemoDlg::OnBnClickedBtnEndCreditCancel)
+	ON_BN_CLICKED(IDC_CHK_ITALIC, &CTextDemoDlg::OnBnClickedChkItalic)
+	ON_BN_CLICKED(IDC_CHK_BOLD, &CTextDemoDlg::OnBnClickedChkBold)
 END_MESSAGE_MAP()
 
 
@@ -133,7 +137,10 @@ void CTextDemoDlg::CallDraw()
 	CString text;
 	m_edtEndCredit.GetWindowTextW(text);
 
-	m_staticTextDisplay.SetInfo(m_pFontScrollView->GetFontFamily(), text, true, 1.0f, 26.0f);
+	bool italic = (m_chkItalic.GetCheck() == BST_CHECKED);
+	bool bold = (m_chkBold.GetCheck() == BST_CHECKED);
+
+	m_staticTextDisplay.SetInfo(m_pFontScrollView->GetFontFamily(), text, true, 1.0f, 26.0f, italic, bold);
 	m_staticTextDisplay.Invalidate();
 	//CreateNewFont(m_pFontScrollView->GetFontFamily());
 }
@@ -180,4 +187,18 @@ void CTextDemoDlg::OnBnClickedBtnEndCreditCancel()
 {
 	// TODO: Add your control notification handler code here
 	EndDialog(IDCANCEL);
+}
+
+
+void CTextDemoDlg::OnBnClickedChkItalic()
+{
+	// TODO: Add your control notification handler code here
+	CallDraw();
+}
+
+
+void CTextDemoDlg::OnBnClickedChkBold()
+{
+	// TODO: Add your control notification handler code here
+	CallDraw();
 }
