@@ -21,6 +21,11 @@
 CD2DNicePhotoDlg::CD2DNicePhotoDlg(CWnd* pParent /*=nullptr*/)
 	: CDialogEx(IDD_D2DNICEPHOTO_DIALOG, pParent)
 	, m_Radius(70)
+	, m_Margin(10.0f)
+	, m_ImgWidth(0.0f)
+	, m_ImgHeight(0.0f)
+	, m_FullImgWidth(0.0f)
+	, m_FullImgHeight(0.0f)
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 }
@@ -114,11 +119,11 @@ void CD2DNicePhotoDlg::OnPaint()
 
 			CRect rectClient;
 			GetClientRect(&rectClient);
-			const auto rectSrc = RectF(0.0f, 0.0f, 276, 276);
+			const auto rectSrc = RectF(0.0f, 0.0f, m_FullImgWidth, m_FullImgHeight);
 
-			int halfWidth = (rectClient.Width() - 276) / 2;
-			int halfHeight = (rectClient.Height() - 276) / 2;
-			const auto rectDest = RectF(halfWidth, halfHeight, halfWidth + 276, halfHeight + 276);
+			int halfWidth = (rectClient.Width() - m_FullImgWidth) / 2;
+			int halfHeight = (rectClient.Height() - m_FullImgHeight) / 2;
+			const auto rectDest = RectF(halfWidth, halfHeight, halfWidth + m_FullImgWidth, halfHeight + m_FullImgHeight);
 
 			m_Target->DrawBitmap(bitmap.Get(), rectDest, 1.0f, D2D1_BITMAP_INTERPOLATION_MODE_LINEAR, rectSrc);
 
@@ -146,7 +151,6 @@ void CD2DNicePhotoDlg::CreateDeviceResources()
 		m_WhiteBrush.ReleaseAndGetAddressOf()));
 	HR(m_BmpTarget->CreateSolidColorBrush(ColorF(ColorF::Yellow),
 		m_GreyBrush.ReleaseAndGetAddressOf()));
-	CreateRadialGradientBrush();
 }
 
 void CD2DNicePhotoDlg::CreateDeviceIndependentResources()
@@ -156,7 +160,6 @@ void CD2DNicePhotoDlg::CreateDeviceIndependentResources()
 void CD2DNicePhotoDlg::Draw()
 {
 	DrawImage();
-	//DrawImageText();
 }
 
 void CD2DNicePhotoDlg::DrawImage()
@@ -205,14 +208,25 @@ void CD2DNicePhotoDlg::DrawPhoto()
 	if (!m_PhotoBitmap)
 		LoadImage(m_ImageFile, m_BmpTarget.Get(), m_PhotoBitmap, m_D2DPhotoBitmap);
 
+	UINT width=0;
+	UINT height = 0;
+	m_PhotoBitmap->GetSize(&width, &height);
+
+	m_ImgWidth = width;
+	m_ImgHeight = height;
+	m_FullImgWidth = m_ImgWidth + m_Margin * 2.0f; // with margins
+	m_FullImgHeight = m_ImgHeight + m_Margin * 2.0f;  // with margins
+
+	CreateRadialGradientBrush();
+
 	m_BmpTarget->BeginDraw();
 	m_BmpTarget->Clear(ColorF(0.26f, 0.56f, 0.87f));
-	const auto rect = RectF(0.0f, 0.0f, 276, 276);
+	const auto rect = RectF(0.0f, 0.0f, m_FullImgWidth, m_FullImgHeight);
 	m_BmpTarget->FillRectangle(&rect, m_WhiteBrush.Get());
 
-	const auto rectSrc = RectF(0.0f, 0.0f, 256, 256);
+	const auto rectSrc = RectF(0.0f, 0.0f, m_ImgWidth, m_ImgHeight);
 
-	const auto rectDest = RectF(10.0f, 10.0f, 266, 266);
+	const auto rectDest = RectF(m_Margin, m_Margin, m_ImgWidth + m_Margin, m_ImgHeight + m_Margin);
 
 	m_BmpTarget->DrawBitmap(m_D2DPhotoBitmap.Get(), rectDest, 1.0f, D2D1_BITMAP_INTERPOLATION_MODE_LINEAR, rectSrc);
 
@@ -220,15 +234,15 @@ void CD2DNicePhotoDlg::DrawPhoto()
 	m_BmpTarget->FillEllipse(
 		ellTopLeft,
 		m_RadialBrushTopLeft.Get());
-	const D2D1_ELLIPSE ellBottomLeft = Ellipse(Point2F(0.0f, 276.0f), m_Radius, m_Radius);
+	const D2D1_ELLIPSE ellBottomLeft = Ellipse(Point2F(0.0f, m_FullImgHeight), m_Radius, m_Radius);
 	m_BmpTarget->FillEllipse(
 		ellBottomLeft,
 		m_RadialBrushBottomLeft.Get());
-	const D2D1_ELLIPSE ellBottomRight = Ellipse(Point2F(276.0f, 276.0f), m_Radius, m_Radius);
+	const D2D1_ELLIPSE ellBottomRight = Ellipse(Point2F(m_FullImgWidth, m_FullImgHeight), m_Radius, m_Radius);
 	m_BmpTarget->FillEllipse(
 		ellBottomRight,
 		m_RadialBrushBottomRight.Get());
-	const D2D1_ELLIPSE ellTopRight = Ellipse(Point2F(276.0f, 0.0f), m_Radius, m_Radius);
+	const D2D1_ELLIPSE ellTopRight = Ellipse(Point2F(m_FullImgWidth, 0.0f), m_Radius, m_Radius);
 	m_BmpTarget->FillEllipse(
 		ellTopRight,
 		m_RadialBrushTopRight.Get());
@@ -255,15 +269,15 @@ void CD2DNicePhotoDlg::CreateRadialGradientBrush()
 	HR(m_BmpTarget->CreateRadialGradientBrush(props, collection.Get(), m_RadialBrushTopLeft.ReleaseAndGetAddressOf()));
 
 
-	props.center = Point2F(0.0f, 276.0f);
+	props.center = Point2F(0.0f, m_FullImgHeight);
 	HR(m_BmpTarget->CreateRadialGradientBrush(props, collection.Get(), m_RadialBrushBottomLeft.ReleaseAndGetAddressOf()));
 
 
-	props.center = Point2F(276.0f, 276.0f);
+	props.center = Point2F(m_FullImgWidth, m_FullImgHeight);
 	HR(m_BmpTarget->CreateRadialGradientBrush(props, collection.Get(), m_RadialBrushBottomRight.ReleaseAndGetAddressOf()));
 
 
-	props.center = Point2F(276.0f, 0.0f);
+	props.center = Point2F(m_FullImgWidth, 0.0f);
 	HR(m_BmpTarget->CreateRadialGradientBrush(props, collection.Get(), m_RadialBrushTopRight.ReleaseAndGetAddressOf()));
 
 	m_RadialBrushTopLeft->SetRadiusX(m_Radius);

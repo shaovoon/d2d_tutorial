@@ -27,6 +27,11 @@ public:
 	ComPtr<ID2D1RadialGradientBrush> m_RadialBrushBottomRight;
 	ComPtr<ID2D1RadialGradientBrush> m_RadialBrushTopRight;
 	int m_Radius;
+	float m_Margin;
+	float m_ImgWidth;
+	float m_ImgHeight;
+	float m_FullImgWidth; // with margins
+	float m_FullImgHeight;  // with margins
 
 	void CreateDeviceResources();
 	void CreateDeviceIndependentResources();
